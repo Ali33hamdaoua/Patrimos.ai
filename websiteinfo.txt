@@ -1,0 +1,572 @@
+================================================================================
+PATRIMOS.AI — WEBSITE STRUCTURE & CONTENT PLAN
+Nobilis Digital Systems  |  patrimos.ai
+Cible: Direction Générale, COO, Asset Managers — hôtellerie de luxe 5★
+Langue: 100% Français  |  Esthétique: Noir profond + Or antique #C9A55C
+================================================================================
+
+PRINCIPE DIRECTEUR
+------------------
+Le site ne vend PAS une liste de fonctionnalités. Il vend une réponse à
+trois questions que se pose un GM ou un COO de palace:
+  1. "Combien d'actifs ai-je perdus l'année dernière sans le savoir?"
+  2. "Pourquoi mon staff ne fait toujours pas d'inventaire correct?"
+  3. "Est-ce que cette solution va vraiment être utilisée, ou finir comme
+      les 3 derniers logiciels qu'on a achetés?"
+
+Chaque section ci-dessous répond à au moins une de ces questions.
+Si une section n'y répond pas, elle est coupée — ou déplacée vers une
+page secondaire (/fonctionnalites, /securite, /a-propos).
+
+
+================================================================================
+ARCHITECTURE GLOBALE DU SITE
+================================================================================
+
+PAGES À CRÉER:
+  /                  → Homepage (priorité absolue)
+  /fonctionnalites   → Deep-dive technique (pour les acheteurs avancés)
+  /application       → Page dédiée à l'app mobile PATRIMOS + Zebra
+  /securite          → Sécurité, conformité, hébergement (objection clé B2B)
+  /a-propos          → Nobilis Digital Systems, mission, équipe
+  /contact           → Formulaire + demande de démo
+  /mentions-legales  → Légal
+
+NAVIGATION (Navbar):
+  Logo Patrimos.ai | Solution | Application | Sécurité | À propos | [Demander une démo]
+
+Le bouton "Demander une démo" est en or antique (#C9A55C), toujours visible.
+PAS de "Essayer gratuitement" — ce produit ne se vend pas en self-serve.
+
+
+================================================================================
+HOMEPAGE — STRUCTURE DÉTAILLÉE (12 SECTIONS)
+================================================================================
+
+--------------------------------------------------------------------------------
+SECTION 1 — NAVBAR (sticky, transparent → opaque au scroll)
+--------------------------------------------------------------------------------
+Composants nécessaires:
+  • Logo Patrimos.ai (les deux formes RFID entrelacées en or)
+  • Liens: Solution | Application | Sécurité | À propos
+  • CTA principal: "Demander une démo" (bouton or, fond noir)
+  • Sélecteur de langue FR/EN (à prévoir pour expansion internationale)
+
+Note: la navbar doit rester en français même si l'utilisateur navigue
+longtemps — pas de surprise marketing à la Stripe avec EN qui apparaît.
+
+--------------------------------------------------------------------------------
+SECTION 2 — HERO
+--------------------------------------------------------------------------------
+Objectif: en 5 secondes, le visiteur comprend QUOI, POUR QUI, POURQUOI MAINTENANT.
+
+Contenu:
+  H1 (large, blanc): "L'inventaire de votre palace, en temps réel."
+
+  Sous-titre (gris clair, 1 ligne):
+  "Patrimos.ai connecte chaque actif de votre établissement — du mobilier
+   signature aux équipements techniques — via la technologie RFID,
+   pour que rien ne disparaisse jamais sans laisser de trace."
+
+  Deux CTA:
+    [Demander une démo]  (or antique, plein)
+    [Voir la solution]   (contour or, transparent — scroll vers section 4)
+
+  Visuel à droite (ou fond): mockup réaliste du dashboard sur écran sombre,
+  avec un reflet subtil. PAS de stock photo. PAS d'illustration vectorielle
+  générique.
+
+  Mention discrète sous le hero (gris foncé, petit):
+  "Conçu pour les établissements de prestige.
+   Référence: Royal Mansour Casablanca."
+
+Avertissement de rédaction: éviter "révolutionner", "transformer",
+"disruptif". Ce vocabulaire fait fuir les COO 50+ ans qui décident.
+
+--------------------------------------------------------------------------------
+SECTION 2bis — SHOWCASE DASHBOARD (carte inclinée qui se redresse au scroll)
+--------------------------------------------------------------------------------
+Objectif: présenter le dashboard Patrimos.ai juste après le Hero, avec un
+effet 3D natif au scroll (rotateX 20°→0°, scale et translation du titre).
+Pas de hijack du scroll — c'est `useScroll` natif de Framer Motion qui
+lit la position du conteneur. Transition fluide avec le Hero : même fond
+noir profond #07111F, aucune rupture de couleur.
+
+Structure:
+
+  Sur-titre (Inter, or antique #C9A55C, uppercase, tracking large):
+    "VOTRE TABLEAU DE BORD"
+
+  Titre H2 (Playfair Display, blanc + or):
+    "Tout votre patrimoine,
+     d'un seul coup d'œil."   ← 2e ligne en or antique
+
+  Sous-titre (Inter, gris #A0A0A0, max 600px, centré):
+    "Suivez chaque actif, chaque mouvement, chaque alerte en temps
+     réel depuis une interface pensée pour les directions
+     d'établissements de prestige."
+
+  Card en dessous: cadre fond #0D1524, bordure or antique 30% (border-2),
+  rounded-[30px], boxShadow profonde + glow or subtil
+  (0 0 80px rgba(201,165,92,0.08)). À l'intérieur: la capture du dashboard.
+
+Hauteur: 45rem (mobile) / 55rem (desktop) — volontairement contenue pour
+ne pas dominer la homepage à 12 sections. Inner card: 30rem / 40rem.
+
+Statut visuel: placeholder en attendant le screenshot final
+(icône Lucide LayoutDashboard en or + texte "Capture du dashboard à venir"
+en gris, fond #07111F cohérent). À remplacer par next/image dès que le
+PNG/WEBP est déposé dans /public/images/.
+
+--------------------------------------------------------------------------------
+SECTION 3 — STATS BAR (bande de chiffres, fond légèrement plus clair)
+--------------------------------------------------------------------------------
+Objectif: ancrer la crédibilité par des chiffres concrets AVANT de parler
+fonctionnalités. Si vous n'avez pas encore ces chiffres, utilisez des
+benchmarks du secteur (sourcés en footnote) jusqu'à avoir vos propres data.
+
+4 chiffres maximum, sur une ligne horizontale, chacun en or:
+
+  [12%]      Perte annuelle moyenne d'actifs dans un hôtel 5★ sans suivi RFID
+  [<2 min]   Temps pour scanner une chambre complète avec un Zebra + Patrimos
+  [100%]     Des actifs critiques tracés en temps réel
+  [24/7]     Surveillance et alertes automatiques
+
+Sous chaque chiffre, une ligne de texte gris (12-14px max).
+Si vous citez un benchmark externe (ex: Deloitte hospitality report),
+mettez la source en petit en bas de la section.
+
+--------------------------------------------------------------------------------
+SECTION 4 — "QU'EST-CE QUE PATRIMOS?" (Bloc explicatif court)
+--------------------------------------------------------------------------------
+Objectif: répondre à la question "concrètement, c'est quoi?" en 3 phrases.
+
+Structure: bloc texte centré, max 600px de large, fond noir.
+
+  Titre (H2): "Une plateforme. Trois éléments. Zéro perte."
+
+  Paragraphe (3-4 lignes max):
+  "Patrimos.ai est une plateforme de gestion d'actifs par identification
+   RFID, conçue exclusivement pour les établissements hôteliers de luxe.
+   Chaque objet de valeur est marqué d'une puce passive, scanné par vos
+   équipes via un terminal Zebra connecté à notre application mobile,
+   et synchronisé en temps réel avec votre tableau de bord centralisé."
+
+  Sous le texte, un schéma minimaliste en 3 étapes (icônes or, lignes fines):
+
+      [Puce RFID]  →  [App mobile + Zebra]  →  [Dashboard Patrimos]
+        Marquer         Scanner sur place        Voir, alerter, décider
+
+Ce schéma est CRITIQUE. C'est ce que les visiteurs vont retenir. Il doit
+être au crayon, élégant, pas un GIF clinquant.
+
+--------------------------------------------------------------------------------
+SECTION 5 — POURQUOI PATRIMOS (3 piliers, format "problème → notre réponse")
+--------------------------------------------------------------------------------
+Objectif: ne pas lister vos features, mais opposer leurs douleurs à vos
+solutions. Format en 3 colonnes (desktop) / empilé (mobile).
+
+  Pilier 1 — VISIBILITÉ TOTALE
+    Problème: "Vous découvrez la disparition d'un actif lors de l'inventaire
+              annuel. Trop tard pour agir."
+    Réponse:  "Patrimos vous alerte dès qu'un actif quitte une zone autorisée.
+              En temps réel. Sur mobile, par email, par SMS si besoin."
+
+  Pilier 2 — ADOPTION TERRAIN
+    Problème: "Vos équipes housekeeping et maintenance n'utiliseront pas
+              un logiciel complexe. Vous le savez."
+    Réponse:  "L'app mobile PATRIMOS fonctionne comme un scanner de
+              supermarché: on pointe, on scanne, c'est fini. Formation
+              de 15 minutes par employé."
+
+  Pilier 3 — CONFORMITÉ ET REPORTING
+    Problème: "Vos audits comptables exigent un inventaire physique
+              vérifiable. Préparer un audit prend trois semaines."
+    Réponse:  "Tous vos rapports d'inventaire, mouvements, alertes et
+              historiques sont générés automatiquement, exportables en
+              PDF ou Excel, conformes aux exigences comptables marocaines
+              et internationales."
+
+Note rédactionnelle: chaque "problème" doit faire mal. Si la phrase fait
+hocher la tête à un GM, c'est gagné. Sinon, réécrire.
+
+--------------------------------------------------------------------------------
+SECTION 6 — L'APPLICATION MOBILE PATRIMOS (section dédiée, fortement visuelle)
+--------------------------------------------------------------------------------
+Objectif: positionner l'app mobile comme l'ARME SECRÈTE, pas comme un
+"bonus". C'est ce qui transforme un Zebra scanner (matériel froid de
+1500€) en outil quotidien utilisé par tout le staff.
+
+Layout proposé: 50/50 — texte à gauche, mockup à droite (smartphone réaliste
+tenu en main, écran de scan visible, fond du hall d'hôtel flouté).
+
+  Titre (H2): "PATRIMOS — l'application qui met votre staff aux commandes."
+
+  Sous-titre:
+  "L'application mobile dédiée qui transforme votre scanner Zebra en
+   outil de gestion d'actifs intelligent, connecté en permanence à votre
+   tableau de bord."
+
+  Bénéfices clés (4 puces avec icônes or):
+    • Connexion native aux scanners Zebra (modèles TC22, TC27, MC3300+)
+    • Scan d'une chambre entière en moins de 2 minutes
+    • Synchronisation temps réel avec le dashboard web
+    • Mode hors-ligne: scannez sans réseau, synchronisez plus tard
+    • Interface en français, formation < 15 min par employé
+
+  CTA: [Découvrir l'application →]  (lien vers /application)
+
+  Mention discrète sous la section:
+  "Disponible sur Android. Compatible avec l'écosystème Zebra Enterprise."
+
+Pourquoi cette section est si importante: les concurrents (Asset Panda,
+Snipe-IT, etc.) ont des apps mobiles, mais aucune n'est conçue NATIVEMENT
+pour les scanners Zebra haut de gamme. C'est votre différenciation
+technique réelle. Mettez-le en avant.
+
+--------------------------------------------------------------------------------
+SECTION 7 — FONCTIONNALITÉS CLÉS (galerie 3 colonnes, tilt 3D au scroll)
+--------------------------------------------------------------------------------
+Objectif: montrer Patrimos.ai en action via une galerie verticale qui se
+redresse au scroll (rotateX 75° → 0°, scale 1.2 → 1) avec parallax léger
+sur chaque colonne. Pas de hijack — useScroll natif de Framer Motion.
+
+Structure header (centré, animé via ContainerStagger / ContainerAnimated):
+
+  Sur-titre (or antique, uppercase, tracking large):
+    "LA PLATEFORME"
+
+  Titre H2 (Playfair Display, blanc + or):
+    "Une plateforme complète"
+    "pour vos actifs de prestige."     ← "complète" en or antique
+
+  Sous-titre (Inter, gris, max 600px, centré):
+    "Du dashboard centralisé à l'application mobile sur scanner Zebra,
+     en passant par le marquage RFID terrain — découvrez Patrimos.ai
+     en action."
+
+  Deux CTA centrés:
+    [Demander une démo]   → /#contact (bouton or plein)
+    [Voir l'application]  → /#mobile-app (contour or transparent)
+
+Galerie (3 colonnes desktop, 2 colonnes mobile, 3e colonne masquée < md):
+
+  Colonne 1 — DASHBOARD WEB
+    Vue d'ensemble actifs · Alertes Kanban · Rapports PDF/Excel ·
+    Mouvements & historique.
+    Parallax yRange ["-10%", "2%"].
+
+  Colonne 2 — APPLICATION MOBILE / SCANNER
+    Application PATRIMOS · Scan d'un actif · Mode hors-ligne ·
+    Authentification staff.
+    Parallax yRange ["15%", "5%"], offset négatif desktop md:mt-[-20%]
+    (annulé sur mobile pour ne pas casser le layout).
+
+  Colonne 3 — TERRAIN (hidden sur mobile)
+    Puce RFID posée · Marquage actif · Zones autorisées ·
+    Audit inventaire.
+    Parallax yRange ["-10%", "2%"].
+
+Hauteur: ContainerScroll = 180vh, ContainerSticky = 100svh. Pas de 350vh
+ni d'artefacts pt-[1000px] de la démo originale.
+
+Statut visuel: chaque tuile est actuellement un PLACEHOLDER TEXTE (icône
+Lucide or au centre + libellé court "DASHBOARD / Vue d'ensemble actifs"
+etc.), fond #0D1524, bordure or 20%. À remplacer par <Image src=...> dès
+que les vraies captures (dashboard, mobile, terrain) seront déposées dans
+/public/images/. Aucune stock photo Unsplash, aucune image hors-sujet
+— l'attente d'images réelles est documentée.
+
+Note rédactionnelle: les fonctionnalités exhaustives (multi-sites, PMS,
+permissions granulaires, etc.) ne sont PAS détaillées en homepage. Elles
+vivent sur /fonctionnalites (page deep-dive à créer).
+
+--------------------------------------------------------------------------------
+SECTION 8 — DÉPLOIEMENT (timeline, fond légèrement plus clair que le noir pur)
+--------------------------------------------------------------------------------
+Objectif: rassurer sur la mise en place. Un GM redoute la complexité de
+déploiement plus que le prix. Montrez que c'est cadré.
+
+Format: timeline horizontale (desktop) ou verticale (mobile), 4 étapes.
+
+  Étape 1 — AUDIT (Semaine 1)
+    "Visite de votre établissement, inventaire des actifs à tracer,
+     définition des zones et alertes."
+
+  Étape 2 — MARQUAGE RFID (Semaines 2-3)
+    "Pose des puces RFID par notre équipe. Aucune interruption de votre
+     activité. Travail effectué en horaires creux."
+
+  Étape 3 — FORMATION (Semaine 4)
+    "Formation des équipes housekeeping, maintenance, sécurité.
+     Sessions de 15-30 min par groupe."
+
+  Étape 4 — MISE EN SERVICE (Semaine 5)
+    "Activation du dashboard, premier inventaire automatisé,
+     accompagnement permanent pendant 30 jours."
+
+CTA en bas de section: [Planifier votre déploiement] (or, plein)
+
+--------------------------------------------------------------------------------
+SECTION 9 — CAS CLIENT / RÉFÉRENCE (un seul, mis en valeur)
+--------------------------------------------------------------------------------
+Objectif: un seul cas, raconté correctement, vaut dix logos sans contexte.
+
+Si Royal Mansour Casablanca est référençable, structurez ainsi:
+
+  Visuel: photo professionnelle du palace (ou de son intérieur), traitée
+  en noir et or pour cohérence visuelle.
+
+  Citation (en italique, large, or pâle):
+  "Patrimos.ai nous a permis de reprendre le contrôle complet sur les
+   actifs de l'établissement. Pour la première fois, nous avons un
+   inventaire vivant, pas un document mort dans un classeur."
+   — [Nom, Titre], Royal Mansour Casablanca
+
+  3 chiffres clés résultats:
+    • [X] actifs tracés
+    • [Y]% de réduction des pertes constatées
+    • [Z] heures économisées par mois sur les inventaires
+
+  Lien: [Lire l'étude de cas complète →] (vers PDF ou page dédiée)
+
+ATTENTION: ne citez Royal Mansour QUE si vous avez l'autorisation écrite.
+Sinon, formulez: "Déjà déployé dans des établissements 5★ de référence
+au Maroc" — plus vague mais sans risque juridique.
+
+Si vous n'avez aucune référence publiable encore, REMPLACEZ cette section
+par une section "NOTRE APPROCHE" qui détaille votre méthodologie.
+Ne mettez jamais de faux logos ou de fausses citations.
+
+--------------------------------------------------------------------------------
+SECTION 10 — SÉCURITÉ & CONFIANCE (bandeau, courte)
+--------------------------------------------------------------------------------
+Objectif: répondre aux objections silencieuses sur la sécurité des données.
+C'est un blocker B2B classique.
+
+Format: bandeau horizontal, 4 icônes + courtes phrases.
+
+  🇲🇦  Données hébergées au Maroc (ou conformité CNDP si applicable)
+  🔒  Chiffrement de bout en bout (TLS 1.3, AES-256 au repos)
+  👤  Authentification multi-facteur (MFA) sur tous les comptes
+  📋  Audits de sécurité réguliers, journalisation complète des accès
+
+Lien: [En savoir plus sur notre sécurité →] (vers /securite)
+
+À AJUSTER selon vos réalités techniques. Si vous hébergez sur Railway
+(US ou EU) et pas au Maroc, dites-le honnêtement avec la juridiction
+applicable. Mentir ici tue la confiance définitivement.
+
+--------------------------------------------------------------------------------
+SECTION 11 — FAQ (accordéon, 5-6 questions max)
+--------------------------------------------------------------------------------
+Objectif: désamorcer les objections les plus fréquentes avant qu'elles
+ne tuent la conversion. Questions à inclure (en pensant comme un COO):
+
+  Q1: Faut-il remplacer notre système actuel?
+  R: Non. Patrimos.ai complète votre PMS et votre comptabilité. Nous
+     pouvons même nous intégrer avec eux.
+
+  Q2: Combien de temps avant d'obtenir un ROI?
+  R: Nos clients constatent une réduction des pertes d'actifs dès le
+     premier inventaire automatisé, généralement sous 60 jours.
+
+  Q3: Quel matériel devons-nous acheter?
+  R: Des puces RFID (fournies par nos soins) et un ou plusieurs scanners
+     Zebra compatibles. Nous vous accompagnons dans le choix.
+
+  Q4: L'application mobile fonctionne-t-elle sur n'importe quel téléphone?
+  R: PATRIMOS est optimisé pour les scanners Zebra Android. Une version
+     consultation est disponible sur smartphone standard pour les managers.
+
+  Q5: Que se passe-t-il en cas de panne réseau?
+  R: L'application mobile fonctionne en mode hors-ligne. Les scans sont
+     stockés localement et synchronisés dès le retour du réseau.
+
+  Q6: Quel est le tarif?
+  R: Patrimos.ai est facturé à l'établissement avec un modèle d'abonnement
+     mensuel. Tarification adaptée à la taille de votre hôtel.
+     [Contactez-nous pour un devis personnalisé]
+
+Note: ne mettez PAS de tarifs publics. Pour ce niveau de marché et de
+prestige, la tarification se discute en conversation, pas affichée sur
+le site (cf. Stripe ne montre pas ses tarifs entreprise non plus).
+
+--------------------------------------------------------------------------------
+SECTION 12 — FORMULAIRE DE CONTACT / DEMANDE DE DÉMO
+--------------------------------------------------------------------------------
+Objectif: convertir le visiteur intéressé en lead qualifié. Pas
+d'inscription self-serve. Pas de "free trial". Une vraie conversation.
+
+Layout: 50/50 — texte à gauche, formulaire à droite.
+
+À gauche:
+  Titre (H2): "Voyons ensemble comment Patrimos peut servir votre
+              établissement."
+
+  Sous-titre:
+  "30 minutes en visioconférence avec notre équipe. Nous étudions vos
+   besoins, nous vous montrons la plateforme en conditions réelles,
+   nous vous remettons une proposition adaptée."
+
+  3 puces (icônes or):
+    • Démo personnalisée selon vos types d'actifs
+    • Étude technique de votre établissement
+    • Devis transparent sous 5 jours ouvrés
+
+  Coordonnées discrètes en bas (en gris):
+    Nobilis Digital Systems
+    [Adresse Maroc]
+    contact@nobilisds.com
+    [Numéro de téléphone]
+
+À droite (formulaire):
+  • Nom complet *
+  • Fonction *
+  • Établissement / Groupe hôtelier *
+  • Email professionnel *
+  • Téléphone *
+  • Nombre de chambres (dropdown: <50 / 50-150 / 150-300 / 300+)
+  • Message (textarea, optionnel)
+  • [Demander ma démo] (bouton or, large)
+
+Sous le formulaire (gris, petit):
+  "En soumettant ce formulaire, vous acceptez que vos données soient
+   utilisées par Nobilis Digital Systems pour vous recontacter.
+   Voir notre politique de confidentialité."
+
+Note technique: ce formulaire doit envoyer un email + créer une entrée
+dans votre CRM (HubSpot, Pipedrive, ou ce que vous utilisez). Pas un
+mailto: brut.
+
+
+================================================================================
+FOOTER (toujours présent, sobre)
+================================================================================
+
+Layout 4 colonnes (desktop) / empilé (mobile):
+
+  Colonne 1 — MARQUE
+    Logo Patrimos.ai
+    Tagline: "L'inventaire en temps réel des actifs de prestige."
+    LinkedIn | Instagram (si pertinent)
+
+  Colonne 2 — SOLUTION
+    Fonctionnalités
+    Application mobile
+    Sécurité
+    Déploiement
+
+  Colonne 3 — ENTREPRISE
+    À propos
+    Nobilis Digital Systems
+    Carrières (si vous recrutez)
+    Contact
+
+  Colonne 4 — LÉGAL
+    Mentions légales
+    Politique de confidentialité
+    CGU
+    Cookies
+
+Bandeau bas (gris foncé):
+  © 2026 Nobilis Digital Systems. Tous droits réservés.
+  Patrimos.ai est une marque déposée de Nobilis Digital Systems.
+
+
+================================================================================
+RÈGLES DE COHÉRENCE VISUELLE (à appliquer partout)
+================================================================================
+
+COULEURS:
+  • Fond principal: noir profond (#000000 ou #07111F selon le rendu)
+  • Or antique: #C9A55C (CTA, accents, lignes décoratives)
+  • Texte principal: blanc cassé (#F5F5F5)
+  • Texte secondaire: gris (#A0A0A0)
+  • Texte tertiaire / mentions légales: gris foncé (#606060)
+  • JAMAIS de couleurs vives (rouge, vert vif, bleu). Cassent le luxe.
+
+TYPOGRAPHIE:
+  • Titres: une serif élégante (Playfair Display, Cormorant Garamond,
+    ou similaire). Évitez Times New Roman.
+  • Corps: une sans-serif moderne (Inter, Söhne, Neue Haas Grotesk).
+  • Pas plus de 2 fonts. Jamais.
+
+ESPACEMENT:
+  • Marges généreuses. Le luxe respire.
+  • Sections verticales: minimum 120px de padding top/bottom sur desktop.
+
+ANIMATIONS:
+  • Discrètes. Fade-in au scroll, jamais de parallax agressif.
+  • Hover sur les boutons: transition douce de la couleur de fond,
+    pas d'animation de scale ou de rotation.
+
+IMAGERIE:
+  • Photos: traitement noir et or systématique, ou très désaturées.
+  • Mockups produit: toujours dans un cadre sombre, jamais sur fond blanc.
+  • PAS d'illustrations vectorielles cartoon. PAS d'icônes Unicode (📊).
+    Utilisez Lucide ou Tabler Icons en or fin.
+
+
+================================================================================
+CE QUI N'EST DÉLIBÉRÉMENT PAS DANS LA HOMEPAGE
+================================================================================
+
+Pour éviter le piège du "literally all" — voici ce que JE COUPE de la
+homepage et où je le place:
+
+  ✗ Liste exhaustive des 30+ fonctionnalités
+    → Page /fonctionnalites
+
+  ✗ Détails techniques sur les puces RFID (UHF, fréquences, etc.)
+    → Page /fonctionnalites, section technique
+
+  ✗ Détails sur l'API / intégrations développeur
+    → Page /fonctionnalites ou /developpeurs si pertinent
+
+  ✗ Témoignages multiples (3-5 témoignages)
+    → 1 seul en homepage (Section 9), les autres sur /a-propos
+
+  ✗ Tarifs publics
+    → Discutés uniquement en démo
+
+  ✗ Section "équipe" avec photos
+    → Page /a-propos
+
+  ✗ Blog / actualités
+    → Page /blog (à créer plus tard, pas prioritaire pour la v1)
+
+  ✗ Comparatif avec concurrents
+    → Risqué pour le branding luxe. À mettre dans la doc commerciale
+      remise en démo, jamais publiquement.
+
+POURQUOI: une homepage qui essaie de tout dire ne dit rien. Le visiteur
+moyen scrolle 3-4 sections, puis décide s'il prend rendez-vous ou s'il
+part. Vos 4 premières sections (Navbar, Hero, Stats, Qu'est-ce que
+Patrimos) doivent suffire à déclencher la curiosité.
+
+
+================================================================================
+PROCHAINES ÉTAPES SUGGÉRÉES
+================================================================================
+
+1. Valider cette structure avec vous (ajustements selon votre réalité produit).
+
+2. Pour CHAQUE section, je peux ensuite générer:
+   - Le wireframe détaillé
+   - Le copy final mot pour mot
+   - Le prompt Figma AI / Claude Design / Nanobanana correspondant
+     (en respectant strictement votre palette et votre direction artistique)
+
+3. Avant de coder: faire valider les 3-4 premières sections en design
+   statique. Inutile de coder une homepage de 12 sections si le hero
+   ne convertit pas.
+
+4. Penser SEO dès maintenant (titre H1, meta description, structure
+   sémantique HTML). Si tu veux, je peux te générer un fichier SEO
+   séparé avec les meta tags optimisés pour les requêtes "gestion
+   actifs hôtel", "inventaire RFID hôtellerie", etc.
+
+================================================================================
+FIN DU DOCUMENT
+================================================================================
