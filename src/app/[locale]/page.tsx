@@ -8,6 +8,7 @@ import { WhyPatrimos } from "@/components/sections/WhyPatrimos";
 import { MobileAppShowcase } from "@/components/sections/MobileAppShowcase";
 import { FeaturesGallery } from "@/components/sections/FeaturesGallery";
 import { Deployment } from "@/components/sections/Deployment";
+import { Security } from "@/components/sections/Security";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 
@@ -40,6 +41,7 @@ export default async function HomePage({
       <MobileAppShowcase mobileApp={dict.mobileApp} />
       <FeaturesGallery locale={safeLocale} features={dict.features} />
       <Deployment locale={safeLocale} deployment={dict.deployment} />
+      <Security locale={safeLocale} security={dict.security} />
       <Contact contact={dict.contact} />
       <Footer locale={safeLocale} footer={dict.footer} />
     </main>

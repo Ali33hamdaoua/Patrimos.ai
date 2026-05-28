@@ -68,7 +68,7 @@ export function WhatIsPatrimos({
                 <Fragment key={step.title}>
                   <Reveal delay={0.1 + index * 0.1}>
                     <div className="flex w-44 flex-col items-center text-center">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A55C]/30 bg-[#0D1524]">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A55C]/30 bg-[#141414]">
                         <Icon
                           className="h-7 w-7 text-gold"
                           strokeWidth={1.5}

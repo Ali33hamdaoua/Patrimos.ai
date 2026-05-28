@@ -37,7 +37,7 @@ export function HeroAnimated({ locale, nav, heroAnimated }: HeroAnimatedProps) {
           reverse={false}
         />
         {/* Vignette radiale : centre légèrement assombri pour lisibilité du texte. */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(7,17,31,1)_0%,_transparent_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(10,10,10,1)_0%,_transparent_100%)]" />
         {/* Dégradé du haut : laisse respirer la MiniNavbar. */}
         <div className="absolute left-0 right-0 top-0 h-1/3 bg-gradient-to-b from-surface to-transparent" />
       </div>

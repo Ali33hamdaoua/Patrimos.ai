@@ -10,7 +10,7 @@ import { useEffect, useRef, type ReactNode } from "react";
  *     surclassés pour viser pile #C9A55C (or antique). Sans ces overrides,
  *     les valeurs par défaut du composant (hsl ?, 100%, 70%) produisent un
  *     jaune criard, pas de l'or.
- *   - Backdrop opaque #0D1524 et bordure or 22% pour que les cartes existent
+ *   - Backdrop opaque #141414 et bordure or 22% pour que les cartes existent
  *     visuellement au repos (ex. mobile sans curseur).
  *   - "use client" + types stricts (pas d'`any`, custom-properties typées).
  *
@@ -19,13 +19,10 @@ import { useEffect, useRef, type ReactNode } from "react";
  * rAF batch) si la page en accumule davantage.
  */
 
-type GlowColor =
-  | "blue"
-  | "purple"
-  | "green"
-  | "red"
-  | "orange"
-  | "gold";
+// Variants couleur supprimés (cleanup "aucun bleu / aucune couleur vive") :
+// seul `gold` est conservé puisque c'est le seul utilisé. Ajouter d'autres
+// teintes ici si besoin futur — mais respecter la charte (or, ambre).
+type GlowColor = "gold";
 
 type GlowVariant = {
   /** Teinte HSL de base (0–360). */
@@ -34,7 +31,7 @@ type GlowVariant = {
   spread: number;
   /** Saturation HSL en % (0–100). Si non défini, fallback CSS = 100. */
   saturation?: number;
-  /** Couleur de fond solide de la carte (ex. "#0D1524"). */
+  /** Couleur de fond solide de la carte (ex. "#141414"). */
   backdrop?: string;
   /** Couleur de la bordure statique (visible même sans curseur). */
   borderColor?: string;
@@ -52,18 +49,13 @@ interface GlowCardProps {
 }
 
 const glowColorMap: Record<GlowColor, GlowVariant> = {
-  blue: { base: 220, spread: 200 },
-  purple: { base: 280, spread: 300 },
-  green: { base: 120, spread: 200 },
-  red: { base: 0, spread: 200 },
-  orange: { base: 30, spread: 200 },
   // Or antique #C9A55C ≈ hsl(40, 50%, 57%). Spread étroit pour rester
   // dans la famille or/ambre et ne pas dériver vers le jaune vif.
   gold: {
     base: 38,
     spread: 20,
     saturation: 50,
-    backdrop: "#0D1524",
+    backdrop: "#141414",
     borderColor: "rgba(201, 165, 92, 0.22)",
   },
 };
@@ -81,7 +73,7 @@ type CSSPropertiesWithVars = React.CSSProperties & {
 export const GlowCard = ({
   children,
   className = "",
-  glowColor = "blue",
+  glowColor = "gold",
   size = "md",
   width,
   height,

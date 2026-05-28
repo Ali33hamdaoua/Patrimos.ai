@@ -95,7 +95,7 @@ export function Deployment({
                     )}
 
                     {/* Marqueur — fond opaque pour masquer la ligne dessous. */}
-                    <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#C9A55C]/40 bg-[#0D1524]">
+                    <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#C9A55C]/40 bg-[#141414]">
                       <Icon
                         className="h-6 w-6 text-gold"
                         strokeWidth={1.5}

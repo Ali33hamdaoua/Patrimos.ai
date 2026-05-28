@@ -8,10 +8,10 @@
  */
 
 export const colors = {
-  /** Fonds : base = noir profond, elevated = bande légèrement plus claire (Stats, Déploiement). */
+  /** Fonds : base = noir neutre charbon, elevated = gris très sombre neutre. */
   background: {
-    base: "#07111F",
-    elevated: "#0D1A2D",
+    base: "#0A0A0A",
+    elevated: "#141414",
   },
   /** Or antique : DEFAULT pour CTA/accents, hover pour la transition douce des boutons, pale pour les citations. */
   gold: {

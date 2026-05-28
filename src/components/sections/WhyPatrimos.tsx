@@ -8,7 +8,7 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 /**
  * Section 5 — Pourquoi Patrimos. Trois piliers en cartes GlowCard (variant
  * "gold") au format "problème → réponse". Le glow suit le curseur sur
- * desktop ; sur mobile, le fond solide #0D1524 + la bordure or 22% font
+ * desktop ; sur mobile, le fond solide #141414 + la bordure or 22% font
  * exister les cartes même sans interaction.
  */
 

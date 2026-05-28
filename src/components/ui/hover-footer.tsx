@@ -154,7 +154,7 @@ export const FooterBackgroundGradient = () => {
       className="absolute inset-0 z-0"
       style={{
         background:
-          "radial-gradient(125% 125% at 50% 10%, #07111F 50%, #C9A55C18 100%)",
+          "radial-gradient(125% 125% at 50% 10%, #0A0A0A 50%, #C9A55C18 100%)",
       }}
     />
   );

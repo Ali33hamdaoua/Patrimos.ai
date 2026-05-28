@@ -95,6 +95,29 @@ export const fr = {
     copyright: "© 2026 Nobilis Digital Systems. Tous droits réservés.",
     trademark: "Patrimos.ai est une marque de Nobilis Digital Systems.",
   },
+  security: {
+    overline: "SÉCURITÉ & SOUVERAINETÉ",
+    title: "Vos données restent les vôtres.",
+    subtitle:
+      "Un hébergement souverain, des accès maîtrisés, une transparence totale sur le traitement de vos données.",
+    pillars: [
+      {
+        title: "Hébergement souverain, au Maroc ou ailleurs",
+        text: "Vos données peuvent être hébergées au Maroc, sur une infrastructure locale (N+One), garantissant qu'elles ne quittent pas le territoire. Pour les groupes internationaux, un hébergement sur cloud international (AWS) est également disponible. Le choix vous appartient.",
+      },
+      {
+        title: "Communications sécurisées",
+        text: "Toutes les communications entre vos terminaux, l'application et la plateforme sont chiffrées. L'accès à votre tableau de bord est protégé et réservé aux personnes que vous autorisez.",
+      },
+      {
+        title: "Transparence et contrôle",
+        text: "Vos données ne servent qu'à votre service. Elles ne sont ni revendues ni partagées. Vous gardez la maîtrise de qui accède à quoi, et vous pouvez en demander l'export ou la suppression.",
+      },
+    ],
+    closing:
+      "Une question précise sur la sécurité ou la conformité de vos données ? Notre équipe technique y répond directement.",
+    cta: "Poser une question",
+  },
   contact: {
     overline: "CONTACT",
     title:

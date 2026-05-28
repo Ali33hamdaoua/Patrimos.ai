@@ -5,6 +5,10 @@
 @layer base {
   :root {
     color-scheme: dark;
+    /* Neutralise les bleus natifs du navigateur (checkbox/radio/progress,
+       curseur de texte, etc.) au profit de l'or antique. */
+    accent-color: #c9a55c;
+    caret-color: #c9a55c;
   }
 
   html {
@@ -26,8 +30,12 @@
     text-wrap: balance;
   }
 
-  /* Sélection en or discret, cohérente avec la direction artistique. */
-  ::selection {
+  /* Sélection en or discret, cohérente avec la direction artistique.
+     Les inputs/textarea nécessitent leur propre règle (le navigateur
+     n'applique pas systématiquement la règle globale aux champs). */
+  ::selection,
+  input::selection,
+  textarea::selection {
     background: rgba(201, 165, 92, 0.25);
     color: #f5f5f5;
   }
@@ -37,6 +45,11 @@
     outline: 2px solid theme("colors.gold.DEFAULT");
     outline-offset: 3px;
     border-radius: 2px;
+  }
+
+  /* Liens HTML par défaut : pas de bleu hérité du navigateur. */
+  a {
+    color: inherit;
   }
 }
 

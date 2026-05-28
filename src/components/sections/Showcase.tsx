@@ -16,7 +16,7 @@ export function Showcase({
   return (
     <section
       id="showcase"
-      className="overflow-hidden bg-surface"
+      className="overflow-hidden bg-surface pt-24 md:pt-0"
       aria-label="Tableau de bord"
     >
       <ContainerScroll

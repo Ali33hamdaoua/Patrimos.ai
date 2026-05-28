@@ -172,7 +172,7 @@ export function Contact({
 
           {/* Colonne droite — carte formulaire. */}
           <Reveal delay={0.1}>
-            <div className="rounded-2xl border border-[#C9A55C]/25 bg-[#0D1524] p-6 shadow-2xl shadow-black/40 md:p-8">
+            <div className="rounded-2xl border border-[#C9A55C]/25 bg-[#141414] p-6 shadow-2xl shadow-black/40 md:p-8">
               {status === "success" ? (
                 <SuccessPanel message={dict.form.success} />
               ) : (

@@ -132,7 +132,7 @@ const ProductVisual = ({
     <motion.div
       animate={{ scale: [1, 1.05, 1] }}
       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute inset-0 rounded-full bg-gradient-to-br from-[#C9A55C]/40 to-[#07111F] opacity-40 blur-2xl"
+      className="absolute inset-0 rounded-full bg-gradient-to-br from-[#C9A55C]/40 to-[#0A0A0A] opacity-40 blur-2xl"
     />
 
     {/* Cercle conteneur */}
@@ -212,7 +212,7 @@ const ProductDetails = ({
       {/* Panneau de specs */}
       <motion.div
         variants={itemVariants}
-        className="w-full space-y-6 rounded-2xl border border-[#C9A55C]/20 bg-[#0D1524]/60 p-6 backdrop-blur-sm"
+        className="w-full space-y-6 rounded-2xl border border-[#C9A55C]/20 bg-[#141414]/60 p-6 backdrop-blur-sm"
       >
         {product.features.map((feature, idx) => {
           const Icon = featureIcons[feature.label];
@@ -266,7 +266,7 @@ const Switcher = ({
     <div className="mt-16 flex justify-center md:mt-20">
       <motion.div
         layout
-        className="flex items-center gap-1 rounded-full border border-[#C9A55C]/20 bg-[#0D1524]/80 p-1.5 shadow-2xl backdrop-blur-2xl"
+        className="flex items-center gap-1 rounded-full border border-[#C9A55C]/20 bg-[#141414]/80 p-1.5 shadow-2xl backdrop-blur-2xl"
       >
         {options.map((opt) => (
           <motion.button

@@ -69,7 +69,7 @@ const COL_FIELD: PlaceholderTile[] = [
 function Tile({ tile }: { tile: PlaceholderTile }) {
   const Icon = tile.icon;
   return (
-    <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-xl border border-[#C9A55C]/20 bg-[#0D1524] p-4 shadow-2xl shadow-black/50">
+    <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-xl border border-[#C9A55C]/20 bg-[#141414] p-4 shadow-2xl shadow-black/50">
       <Icon
         className="h-7 w-7 text-gold"
         strokeWidth={1.5}
