@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   Bell,
@@ -16,6 +15,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import AnimatedTextCycle from "@/components/ui/AnimatedTextCycle";
 import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 import { FeatureCarousel } from "@/components/ui/feature-carousel";
+import { ProductImageCarousel } from "@/components/ui/product-image-carousel";
 import { GlowCard } from "@/components/ui/spotlight-card";
 import { ScrollDrivenVideo } from "@/components/sections/ScrollDrivenVideo";
 import { isLocale, localizeHref } from "@/lib/i18n/config";
@@ -137,17 +137,12 @@ export default async function ApplicationPage({
                   height="100%"
                   className="min-h-[580px]"
                 >
-                  {/* Région haute (grid-row 1fr) : image + titre + description. */}
+                  {/* Région haute (grid-row 1fr) : carousel + titre + description. */}
                   <div className="flex flex-col">
-                    <div className="mx-auto flex h-44 items-center justify-center md:h-56">
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        width={240}
-                        height={240}
-                        className="h-full w-auto object-contain"
-                      />
-                    </div>
+                    <ProductImageCarousel
+                      images={item.images}
+                      alt={item.title}
+                    />
                     <h3 className="mt-6 font-serif text-2xl text-ink-primary">
                       {item.title}
                     </h3>

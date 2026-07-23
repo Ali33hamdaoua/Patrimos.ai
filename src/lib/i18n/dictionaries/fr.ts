@@ -130,7 +130,7 @@ export const fr = {
             "Autonomie : usage intensif sur une journée complète",
             "Interface en français, prise en main en 15 minutes",
           ],
-          image: "/zebra.png",
+          images: ["/zebra.png", "/zebra1.png", "/zebra2.png"],
         },
         {
           title: "Puce RFID Patrimos",
@@ -141,7 +141,13 @@ export const fr = {
             "Durable dans le temps, résistante aux conditions hôtelières",
             "Identification unique par actif",
           ],
-          image: "/tag.png",
+          images: [
+            "/tag.png",
+            "/tagrfid2.png",
+            "/tagrfid3.png",
+            "/tagmetal.png",
+            "/rouleautag.png",
+          ],
         },
       ],
     },
