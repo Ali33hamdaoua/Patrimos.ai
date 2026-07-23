@@ -15,7 +15,9 @@ export const fr = {
   nav: {
     links: [
       { label: "Solution", href: "/#solution" },
-      { label: "Application", href: "/#mobile-app" },
+      { label: "Application", href: "/application" },
+      { label: "Fonctionnalités", href: "/#features" },
+      { label: "Déploiement", href: "/#deployment" },
       { label: "Sécurité", href: "/#security" },
       { label: "À propos", href: "/a-propos" },
     ],
@@ -94,6 +96,152 @@ export const fr = {
     },
     copyright: "© 2026 Nobilis Digital Systems. Tous droits réservés.",
     trademark: "Patrimos.ai est une marque de Nobilis Digital Systems.",
+  },
+  application: {
+    hero: {
+      overline: "L'APPLICATION & LE MATÉRIEL",
+      titlePrefix: "PATRIMOS — vos équipes",
+      titleWords: ["housekeeping", "maintenance", "sécurité", "terrain"],
+      titleSuffix: " aux commandes.",
+      subtitle:
+        "L'application mobile qui transforme un scanner Zebra en outil de gestion. Pensée pour le terrain, conçue pour les palaces.",
+    },
+    video: {
+      overline: "LE MATÉRIEL EN MAIN",
+      title: "Un geste, un actif tracé.",
+      description:
+        "Le scanner Zebra TC22 lit chaque puce RFID en quelques millisecondes. Vos équipes balaient une chambre, tous les actifs marqués sont identifiés simultanément. Pas de saisie manuelle, pas de papier.",
+      bullets: [
+        "Lecture multi-tags simultanée",
+        "Jusqu'à 200 actifs en moins de 2 minutes",
+        "Synchronisation immédiate avec le dashboard",
+      ],
+    },
+    hardware: {
+      overline: "LE MATÉRIEL",
+      title: "Robuste. Discret. Conçu pour l'usage intensif.",
+      items: [
+        {
+          title: "Terminal Zebra TC22",
+          description:
+            "Scanner industriel, robuste et autonome. Lecture RFID longue portée, jusqu'à 200 actifs en moins de 2 minutes. Conçu pour résister à l'environnement hôtelier intensif.",
+          bullets: [
+            "Lecture RFID multi-tags simultanée",
+            "Autonomie : usage intensif sur une journée complète",
+            "Interface en français, prise en main en 15 minutes",
+          ],
+          image: "/ScannerApplication.png",
+        },
+        {
+          title: "Puce RFID Patrimos",
+          description:
+            "Discrète, durable, sans batterie ni maintenance. Apposée sur chaque actif à tracer, elle assure une identification unique et un suivi à vie.",
+          bullets: [
+            "Sans batterie · sans maintenance",
+            "Durable dans le temps, résistante aux conditions hôtelières",
+            "Identification unique par actif",
+          ],
+          image: "/TAGRFID.png",
+        },
+      ],
+    },
+    appCarousel: {
+      overline: "L'APPLICATION MOBILE",
+      title: "Patrimos au creux de la main.",
+      subtitle:
+        "Une interface pensée pour le terrain, claire, rapide, sans formation lourde.",
+      // TODO captures: remplacer les 6 logos par les vrais screenshots de l'app.
+      images: [
+        { src: "/logo.png", alt: "Capture app — écran d'accueil" },
+        { src: "/logo.png", alt: "Capture app — scan d'un actif" },
+        { src: "/logo.png", alt: "Capture app — liste d'actifs" },
+        { src: "/logo.png", alt: "Capture app — détail d'un actif" },
+        { src: "/logo.png", alt: "Capture app — alertes" },
+        { src: "/logo.png", alt: "Capture app — rapports" },
+      ],
+    },
+    features: {
+      overline: "CE QUE FAIT L'APP",
+      title: "Conçue pour le terrain.",
+      items: [
+        {
+          title: "Scan RFID multi-tags",
+          description:
+            "Scanner plusieurs actifs en un seul geste, en moins de 2 minutes.",
+        },
+        {
+          title: "Fonctionne hors-ligne",
+          description:
+            "Vos équipes scannent même sans connexion. Synchronisation automatique dès le retour du réseau.",
+        },
+        {
+          title: "Alertes en temps réel",
+          description:
+            "Objet manquant, déplacé, ou hors zone : notification immédiate sur le dashboard et l'app.",
+        },
+        {
+          title: "Interface en français",
+          description:
+            "Conçue pour la prise en main en 15 minutes par vos équipes housekeeping, maintenance et sécurité.",
+        },
+        {
+          title: "Synchronisation fluide",
+          description:
+            "Les données de l'app remontent instantanément vers le dashboard web. Aucune intervention manuelle.",
+        },
+      ],
+    },
+    ecosystem: {
+      overline: "L'ÉCOSYSTÈME",
+      title: "Une seule plateforme, deux interfaces.",
+      subtitle:
+        "Vos équipes terrain et votre direction travaillent sur le même flux de données, en temps réel.",
+      mobileLabel: "App mobile",
+      dashboardLabel: "Dashboard web",
+    },
+    finalCta: {
+      title: "Voir Patrimos en condition réelle.",
+      subtitle: "30 minutes en visio avec notre équipe.",
+      cta: "Demander une démo",
+    },
+  },
+  faq: {
+    overline: "QUESTIONS FRÉQUENTES",
+    title: "Tout ce que vous devez savoir.",
+    items: [
+      {
+        question: "Combien de temps prend le déploiement ?",
+        answer:
+          "Environ cinq semaines, de l'audit initial à la mise en service, sans interruption de votre activité. Le marquage RFID est réalisé en horaires creux.",
+      },
+      {
+        question: "Faut-il remplacer notre matériel existant ?",
+        answer:
+          "Non. Patrimos s'appuie sur des terminaux Zebra standards et des puces RFID posées sur vos actifs existants. Aucune refonte de votre infrastructure n'est nécessaire.",
+      },
+      {
+        question: "Nos équipes vont-elles devoir être formées longtemps ?",
+        answer:
+          "Non. L'application est conçue pour être prise en main en quelques minutes. Nous formons vos équipes housekeeping, maintenance et sécurité en sessions courtes de 15 à 30 minutes.",
+      },
+      {
+        question: "Où sont hébergées nos données ?",
+        answer:
+          "Au choix : sur une infrastructure souveraine au Maroc (N+One), garantissant que vos données ne quittent pas le territoire, ou sur cloud international (AWS) pour les groupes qui le préfèrent.",
+      },
+      {
+        question: "Patrimos fonctionne-t-il sans connexion internet ?",
+        answer:
+          "L'application mobile continue de fonctionner sur le terrain et synchronise les données avec le tableau de bord dès que la connexion est rétablie.",
+      },
+      {
+        question: "Quel type d'établissement peut utiliser Patrimos ?",
+        answer:
+          "Patrimos est conçu pour les établissements de prestige : palaces, hôtels 5 étoiles, resorts et résidences de luxe qui gèrent un patrimoine d'actifs de valeur.",
+      },
+    ],
+    closing: "Une autre question ? Notre équipe vous répond directement.",
+    cta: "Nous contacter",
   },
   security: {
     overline: "SÉCURITÉ & SOUVERAINETÉ",
@@ -252,6 +400,7 @@ export const fr = {
       "Mode hors-ligne : scannez sans réseau, synchronisez plus tard",
       "Formation < 15 min par employé",
     ],
+    detailsCta: "Découvrir l'application en détail",
   },
   whyPatrimos: {
     overline: "POURQUOI PATRIMOS",

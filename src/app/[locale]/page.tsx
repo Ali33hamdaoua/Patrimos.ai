@@ -9,14 +9,14 @@ import { MobileAppShowcase } from "@/components/sections/MobileAppShowcase";
 import { FeaturesGallery } from "@/components/sections/FeaturesGallery";
 import { Deployment } from "@/components/sections/Deployment";
 import { Security } from "@/components/sections/Security";
+import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
-import { Footer } from "@/components/sections/Footer";
 
 /**
  * Homepage. Sections validées assemblées au fur et à mesure du workflow.
  *
  * Placée directement sous `[locale]/` (hors du route group `(site)`) : pas
- * de Navbar globale — c'est la MiniNavbar de HeroAnimated qui assure la nav.
+ * la Navbar globale est rendue dans `[locale]/layout.tsx` pour toutes les routes.
  */
 export default async function HomePage({
   params,
@@ -29,21 +29,17 @@ export default async function HomePage({
 
   return (
     <main>
-      <HeroAnimated
-        locale={safeLocale}
-        nav={dict.nav}
-        heroAnimated={dict.heroAnimated}
-      />
+      <HeroAnimated locale={safeLocale} heroAnimated={dict.heroAnimated} />
       <Showcase showcase={dict.showcase} />
       <StatsBar stats={dict.stats} />
       <WhatIsPatrimos whatIsPatrimos={dict.whatIsPatrimos} />
       <WhyPatrimos whyPatrimos={dict.whyPatrimos} />
-      <MobileAppShowcase mobileApp={dict.mobileApp} />
+      <MobileAppShowcase locale={safeLocale} mobileApp={dict.mobileApp} />
       <FeaturesGallery locale={safeLocale} features={dict.features} />
       <Deployment locale={safeLocale} deployment={dict.deployment} />
       <Security locale={safeLocale} security={dict.security} />
+      <Faq locale={safeLocale} faq={dict.faq} />
       <Contact contact={dict.contact} />
-      <Footer locale={safeLocale} footer={dict.footer} />
     </main>
   );
 }

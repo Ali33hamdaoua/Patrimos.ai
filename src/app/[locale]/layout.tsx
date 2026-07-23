@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import { isLocale, locales } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/sections/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -50,9 +52,15 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
+  const dict = getDictionary(locale);
+
   return (
     <html lang={locale} className={`${inter.variable} ${playfair.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Navbar locale={locale} nav={dict.nav} />
+        {children}
+        <Footer locale={locale} footer={dict.footer} />
+      </body>
     </html>
   );
 }

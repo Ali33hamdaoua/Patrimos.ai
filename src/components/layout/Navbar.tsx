@@ -2,40 +2,40 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { Logo } from "@/components/layout/Logo";
-import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { cn } from "@/lib/cn";
 import { localizeHref, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
+/**
+ * Navbar globale (pill flottante or, source unique pour tout le site).
+ *
+ * - Fixée en haut (`top-4`), z-50, visible sur toutes les routes.
+ * - Logo PNG à gauche (separate), pill desktop avec 6 liens + CTA or à
+ *   droite, hamburger mobile.
+ * - Mobile : overlay plein écran sous la navbar avec les liens en grand
+ *   et le CTA en pleine largeur. Verrouille le scroll body + ferme à
+ *   Esc + ferme à la navigation.
+ * - Aucun blanc pur : pill `bg-white/[0.03]` ultra-subtil sur ring or 20%.
+ */
 type NavbarProps = {
   locale: Locale;
   nav: Dictionary["nav"];
 };
 
 export function Navbar({ locale, nav }: NavbarProps) {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Transparent en haut, opaque dès qu'on scrolle.
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Ferme le menu mobile à chaque navigation.
+  // Ferme le menu à chaque navigation.
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Verrouille le scroll du body + fermeture à la touche Échap quand le menu est ouvert.
+  // Verrouille le scroll body + fermeture Esc quand le menu est ouvert.
   useEffect(() => {
     if (!open) return;
     document.body.style.overflow = "hidden";
@@ -52,83 +52,103 @@ export function Navbar({ locale, nav }: NavbarProps) {
   const ctaHref = localizeHref("/#contact", locale);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        scrolled || open
-          ? "border-b border-line bg-surface/85 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent",
-      )}
-    >
+    <header className="fixed inset-x-0 top-4 z-50">
       <Container>
-        <div className="flex h-20 items-center justify-between">
-          <Logo locale={locale} />
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link
+            href={`/${locale}`}
+            aria-label="Patrimos.ai — Accueil"
+            className="inline-flex items-center"
+          >
+            <Image
+              src="/logo.png"
+              alt="Patrimos.ai"
+              width={120}
+              height={40}
+              priority
+              className="h-10 w-auto"
+            />
+          </Link>
 
+          {/* Pill desktop */}
           <nav
             aria-label="Navigation principale"
-            className="hidden items-center gap-10 lg:flex"
+            className="hidden md:flex items-center"
           >
-            {nav.links.map((link) => (
+            <div className="flex items-center gap-1 rounded-full bg-white/[0.03] px-1 py-1 ring-1 ring-[#C9A55C]/20 backdrop-blur">
+              {nav.links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={localizeHref(link.href, locale)}
+                  className="px-3 py-2 font-sans text-sm font-medium text-white/80 transition-colors hover:text-gold"
+                >
+                  {link.label}
+                </Link>
+              ))}
               <Link
-                key={link.href}
-                href={localizeHref(link.href, locale)}
-                className="text-sm text-ink-secondary transition-colors hover:text-ink-primary"
+                href={ctaHref}
+                className="ml-1 inline-flex items-center gap-2 rounded-full bg-gold px-3.5 py-2 font-sans text-sm font-medium text-black transition-colors hover:bg-gold/90"
               >
-                {link.label}
+                {nav.cta}
+                <ArrowUpRight
+                  className="h-4 w-4"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
               </Link>
-            ))}
+            </div>
           </nav>
 
-          <div className="hidden items-center gap-7 lg:flex">
-            <LanguageSwitcher current={locale} />
-            <Button href={ctaHref} size="sm">
-              {nav.cta}
-            </Button>
-          </div>
-
+          {/* Toggle mobile */}
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center text-ink-primary lg:hidden"
+            onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            onClick={() => setOpen((value) => !value)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.05] ring-1 ring-[#C9A55C]/20 backdrop-blur md:hidden"
           >
             {open ? (
-              <X className="h-5 w-5" aria-hidden="true" />
+              <X className="h-5 w-5 text-white/90" aria-hidden="true" />
             ) : (
-              <Menu className="h-5 w-5" aria-hidden="true" />
+              <Menu className="h-5 w-5 text-white/90" aria-hidden="true" />
             )}
           </button>
         </div>
       </Container>
 
-      {open && (
-        <div id="mobile-menu" className="lg:hidden">
-          <Container>
-            <nav
-              aria-label="Navigation principale"
-              className="flex flex-col border-t border-line py-6"
+      {/* Menu mobile — overlay plein écran sous la navbar. */}
+      <div
+        id="mobile-menu"
+        className={cn(
+          "fixed inset-x-0 bottom-0 top-[4.5rem] z-40 overflow-y-auto bg-surface px-6 pb-12 pt-8 md:hidden",
+          open ? "block" : "hidden",
+        )}
+      >
+        <nav aria-label="Navigation principale" className="flex flex-col">
+          {nav.links.map((link) => (
+            <Link
+              key={link.href}
+              href={localizeHref(link.href, locale)}
+              className="border-b border-[#C9A55C]/15 py-5 font-serif text-2xl text-ink-primary transition-colors hover:text-gold"
             >
-              {nav.links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={localizeHref(link.href, locale)}
-                  className="py-3 font-serif text-lg text-ink-primary"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="mt-6 flex items-center justify-between">
-                <LanguageSwitcher current={locale} />
-                <Button href={ctaHref} size="sm">
-                  {nav.cta}
-                </Button>
-              </div>
-            </nav>
-          </Container>
-        </div>
-      )}
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+        <Link
+          href={ctaHref}
+          className="mt-10 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 font-sans text-sm font-medium tracking-wide text-black transition-colors hover:bg-gold/90"
+        >
+          {nav.cta}
+          <ArrowUpRight
+            className="h-4 w-4"
+            strokeWidth={2}
+            aria-hidden="true"
+          />
+        </Link>
+      </div>
     </header>
   );
 }

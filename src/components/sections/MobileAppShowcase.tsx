@@ -1,4 +1,5 @@
-import { Check } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Check } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
@@ -6,16 +7,22 @@ import {
   SpatialProductShowcase,
   type SpatialProduct,
 } from "@/components/ui/spatial-product-showcase";
+import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 /**
  * Section 6 — Application mobile & matériel. Switcher entre Terminal TC22
  * (avec l'app PATRIMOS) et Puce RFID. id="mobile-app" : cible des liens
- * footer et MiniNavbar pointant `/#mobile-app`.
+ * footer et Navbar pointant `/#mobile-app`.
+ *
+ * CTA en bas → page `/[locale]/application` pour le deep-dive (vidéo
+ * scroll-driven, carousel app, écosystème).
  */
 export function MobileAppShowcase({
+  locale,
   mobileApp: dict,
 }: {
+  locale: Locale;
   mobileApp: Dictionary["mobileApp"];
 }) {
   return (
@@ -70,6 +77,23 @@ export function MobileAppShowcase({
             </Reveal>
           ))}
         </div>
+
+        {/* CTA vers la page /application */}
+        <Reveal delay={0.3}>
+          <div className="mt-14 flex justify-center">
+            <Link
+              href={`/${locale}/application`}
+              className="inline-flex items-center gap-2 rounded-full border border-gold px-7 py-3 font-sans text-sm font-medium tracking-wide text-gold transition-colors duration-300 hover:bg-gold/10"
+            >
+              {dict.detailsCta}
+              <ArrowRight
+                className="h-4 w-4"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
+        </Reveal>
       </Container>
     </Section>
   );
