@@ -1,89 +1,37 @@
 import Link from "next/link";
-import {
-  ArrowLeftRight,
-  Bell,
-  ClipboardCheck,
-  Cpu,
-  FileText,
-  LayoutDashboard,
-  Lock,
-  MapPin,
-  ScanLine,
-  Smartphone,
-  Tag,
-  WifiOff,
-  type LucideIcon,
-} from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import {
   ContainerAnimated,
-  ContainerScroll,
   ContainerStagger,
-  ContainerSticky,
-  GalleryCol,
-  GalleryContainer,
 } from "@/components/ui/animated-gallery";
+import { LoadingCarousel } from "@/components/ui/loading-carousel";
 import { localizeHref, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 /**
- * Section 7 — Fonctionnalités clés. Galerie 3 colonnes avec tilt 3D + parallax
- * au scroll natif. id="features" : cible des liens footer / nav.
+ * Section 7 — La plateforme en action. Carousel autoplay (embla) des captures
+ * réelles de la plateforme, avec caption animée + barre de progression.
+ * id="features" : cible des liens footer / nav.
  *
- * ⚠️ Tuiles = PLACEHOLDERS TEXTE en attendant les screenshots réels. Aucune
- * stock photo, aucune image hors-sujet. À remplacer par <Image src=...> dès
- * que les captures du dashboard / mobile / terrain seront déposées dans
- * /public/images/.
+ * Captures dans /public (racine), format paysage 16:9 → `aspectRatio="video"`.
  */
 
-type PlaceholderTile = {
-  category: string;
-  label: string;
-  icon: LucideIcon;
-};
-
-// Colonne 1 — Dashboard web
-const COL_DASHBOARD: PlaceholderTile[] = [
-  { category: "Dashboard", label: "Vue d'ensemble actifs", icon: LayoutDashboard },
-  { category: "Dashboard", label: "Alertes Kanban", icon: Bell },
-  { category: "Dashboard", label: "Rapports PDF / Excel", icon: FileText },
-  { category: "Dashboard", label: "Mouvements & historique", icon: ArrowLeftRight },
+// Captures de la plateforme présentées dans le carousel (dans l'ordre).
+const PLATFORM_TIPS: { text: string; image: string }[] = [
+  { text: "Tableau de bord — tout votre parc d'un coup d'œil", image: "/Dashboard_Patrimos.png" },
+  { text: "Analytics & KPIs en temps réel", image: "/Analytics.png" },
+  { text: "Rapports PDF / Excel exportables", image: "/Rapports.png" },
+  { text: "Alertes suivies en Kanban", image: "/Alertes.png" },
+  { text: "Registre complet des actifs", image: "/RegistreActifs.png" },
+  { text: "Ajout d'un actif en quelques clics", image: "/AjoutActif.png" },
+  { text: "Importation des actifs en masse", image: "/ImportationActifs.png" },
+  { text: "Structuration du parc par zones", image: "/Structuration.png" },
+  { text: "Insights IA sur votre patrimoine", image: "/AI.png" },
+  { text: "Assistant PAT — votre copilote IA", image: "/Chatbot.png" },
+  { text: "Sessions d'inventaire guidées", image: "/Sessions_inventaire.png" },
+  { text: "Guide utilisateur intégré", image: "/GuideUtilisateur.png" },
 ];
-
-// Colonne 2 — Application mobile / scanner Zebra
-const COL_MOBILE: PlaceholderTile[] = [
-  { category: "Mobile", label: "Application PATRIMOS", icon: Smartphone },
-  { category: "Mobile", label: "Scan d'un actif", icon: ScanLine },
-  { category: "Mobile", label: "Mode hors-ligne", icon: WifiOff },
-  { category: "Mobile", label: "Authentification staff", icon: Lock },
-];
-
-// Colonne 3 — Terrain (puces, marquage, audit)
-const COL_FIELD: PlaceholderTile[] = [
-  { category: "Terrain", label: "Puce RFID posée", icon: Cpu },
-  { category: "Terrain", label: "Marquage actif", icon: Tag },
-  { category: "Terrain", label: "Zones autorisées", icon: MapPin },
-  { category: "Terrain", label: "Audit inventaire", icon: ClipboardCheck },
-];
-
-function Tile({ tile }: { tile: PlaceholderTile }) {
-  const Icon = tile.icon;
-  return (
-    <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-xl border border-[#C9A55C]/20 bg-[#141414] p-4 shadow-2xl shadow-black/50">
-      <Icon
-        className="h-7 w-7 text-gold"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      />
-      <div className="text-center">
-        <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-gold/70">
-          {tile.category}
-        </p>
-        <p className="mt-1 text-sm text-ink-secondary">{tile.label}</p>
-      </div>
-    </div>
-  );
-}
 
 export function FeaturesGallery({
   locale,
@@ -154,37 +102,20 @@ export function FeaturesGallery({
         </ContainerStagger>
       </Container>
 
-      {/* Galerie 3 colonnes — tilt 3D + parallax au scroll. */}
-      <ContainerScroll className="relative z-10 mt-16 h-[180vh] md:mt-24">
-        <ContainerSticky className="h-svh px-4 md:px-8">
-          <GalleryContainer>
-            <GalleryCol yRange={["-10%", "2%"]} className="-mt-2">
-              {COL_DASHBOARD.map((tile) => (
-                <Tile key={tile.label} tile={tile} />
-              ))}
-            </GalleryCol>
-
-            <GalleryCol
-              yRange={["15%", "5%"]}
-              className="mt-0 md:mt-[-20%]"
-            >
-              {COL_MOBILE.map((tile) => (
-                <Tile key={tile.label} tile={tile} />
-              ))}
-            </GalleryCol>
-
-            {/* Colonne 3 masquée sur mobile (grid passe à 2 colonnes). */}
-            <GalleryCol
-              yRange={["-10%", "2%"]}
-              className="-mt-2 hidden md:flex"
-            >
-              {COL_FIELD.map((tile) => (
-                <Tile key={tile.label} tile={tile} />
-              ))}
-            </GalleryCol>
-          </GalleryContainer>
-        </ContainerSticky>
-      </ContainerScroll>
+      {/* Carousel autoplay des captures réelles de la plateforme. */}
+      <Container className="relative z-10 mt-16 pb-section md:mt-24">
+        <Reveal>
+          <LoadingCarousel
+            tips={PLATFORM_TIPS}
+            aspectRatio="video"
+            autoplayInterval={4500}
+            showProgress={false}
+            showIndicators
+            showNavigation
+            animateText={false}
+          />
+        </Reveal>
+      </Container>
     </section>
   );
 }

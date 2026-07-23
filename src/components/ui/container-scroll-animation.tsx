@@ -105,9 +105,9 @@ const Card = ({
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003, 0 0 80px rgba(201,165,92,0.08)",
       }}
-      className="mx-auto -mt-12 h-[30rem] w-full max-w-5xl rounded-[30px] border-2 border-gold/30 bg-[#141414] p-2 shadow-2xl md:h-[40rem] md:p-6"
+      className="mx-auto mt-2 aspect-[16/9] w-full max-w-5xl rounded-[30px] border-2 border-gold/30 bg-[#141414] p-2 shadow-2xl md:mt-8 md:p-6"
     >
-      <div className="h-full w-full overflow-hidden rounded-2xl bg-surface md:rounded-2xl md:p-4">
+      <div className="h-full w-full overflow-hidden rounded-2xl bg-surface">
         {children}
       </div>
     </motion.div>

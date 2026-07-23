@@ -1,12 +1,11 @@
-import { LayoutDashboard } from "lucide-react";
+import Image from "next/image";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 /**
  * Showcase : dashboard Patrimos.ai présenté dans une carte 3D qui se
  * redresse au scroll. Vient juste après le Hero (même fond noir profond,
- * pas de rupture). Placeholder visuel tant que le screenshot final n'est
- * pas fourni.
+ * pas de rupture). Affiche la capture réelle du tableau de bord.
  */
 export function Showcase({
   showcase,
@@ -36,18 +35,18 @@ export function Showcase({
           </>
         }
       >
-        {/* Placeholder dashboard : icône or + texte gris, fond noir cohérent.
-            À remplacer par <Image src="/images/dashboard.png" .../> quand
-            le screenshot final sera fourni dans /public/images/. */}
-        <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-surface">
-          <LayoutDashboard
-            className="h-16 w-16 text-gold"
-            strokeWidth={1.25}
-            aria-hidden="true"
+        {/* Capture réelle du tableau de bord Patrimos.ai. La carte est en 16:9
+            (comme l'image) → object-cover remplit l'écran bord à bord, sans
+            bande noire ni rognage. */}
+        <div className="relative h-full w-full overflow-hidden rounded-xl">
+          <Image
+            src="/Dashboard_Patrimos.png"
+            alt="Tableau de bord Patrimos.ai"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 1024px"
+            className="object-cover object-top"
           />
-          <p className="text-sm text-ink-secondary">
-            {showcase.placeholderText}
-          </p>
         </div>
       </ContainerScroll>
     </section>
