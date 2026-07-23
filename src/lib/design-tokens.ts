@@ -19,11 +19,12 @@ export const colors = {
     hover: "#D8BB78",
     pale: "#E2CDA0",
   },
-  /** Texte : primary (blanc cassé), secondary (gris), tertiary (gris foncé / mentions légales). */
+  /** Texte : primary (quasi blanc pur pour les titres), secondary (gris clair
+   *  #B8B8B8 pour les sous-titres), tertiary (gris pour mentions légales). */
   ink: {
-    primary: "#F5F5F5",
-    secondary: "#A0A0A0",
-    tertiary: "#606060",
+    primary: "#FAFAFA",
+    secondary: "#B8B8B8",
+    tertiary: "#6E6E76",
   },
   /** Filets décoratifs en or très discret et bordures neutres. */
   hairline: "rgba(201, 165, 92, 0.22)",

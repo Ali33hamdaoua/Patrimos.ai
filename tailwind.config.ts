@@ -36,8 +36,33 @@ const config: Config = {
         ring: colors.gold.DEFAULT,
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        serif: ["var(--font-playfair)", "Georgia", "serif"],
+        // Police unique du produit : Geist. Corps + UI.
+        sans: [
+          "var(--font-geist-sans)",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "sans-serif",
+        ],
+        // `display` = même famille Geist, réservée aux titres (poids + tracking
+        // serrés, cf. globals.css). `serif` est conservé comme ALIAS de compat
+        // (les titres existants utilisent `font-serif`) et pointe désormais lui
+        // aussi vers Geist — plus aucun serif éditorial sur le site.
+        display: [
+          "var(--font-geist-sans)",
+          "system-ui",
+          "-apple-system",
+          "sans-serif",
+        ],
+        serif: [
+          "var(--font-geist-sans)",
+          "system-ui",
+          "-apple-system",
+          "sans-serif",
+        ],
+      },
+      letterSpacing: {
+        tightest: "-0.04em",
       },
       maxWidth: {
         content: spacing.contentMax,

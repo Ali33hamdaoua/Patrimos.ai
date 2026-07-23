@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { isLocale, locales } from "@/lib/i18n/config";
@@ -7,18 +7,12 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/sections/Footer";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
+/**
+ * Système typographique : Geist (Vercel) comme police unique — corps ET
+ * titres. Identité « SaaS premium » (Linear / Vercel / Stripe) : une seule
+ * grotesque géométrique, la hiérarchie naît du poids, de la taille et de
+ * l'interlettrage (cf. globals.css + tailwind.config.ts).
+ */
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -55,7 +49,7 @@ export default async function LocaleLayout({
   const dict = getDictionary(locale);
 
   return (
-    <html lang={locale} className={`${inter.variable} ${playfair.variable}`}>
+    <html lang={locale} className={GeistSans.variable}>
       <body>
         <Navbar locale={locale} nav={dict.nav} />
         {children}

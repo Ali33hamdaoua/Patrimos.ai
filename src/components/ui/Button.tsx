@@ -6,7 +6,7 @@ type Variant = "solid" | "outline";
 type Size = "sm" | "md";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-sm font-sans font-medium tracking-wide transition-colors duration-300 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-md font-sans font-semibold tracking-wide transition-colors duration-300 disabled:pointer-events-none disabled:opacity-50";
 
 const variantClasses: Record<Variant, string> = {
   // Or plein, texte sombre — CTA principal.
