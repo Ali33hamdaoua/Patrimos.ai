@@ -61,7 +61,7 @@ export function MobileAppShowcase({
         </div>
 
         {/* Ligne de 4 bénéfices clés */}
-        <div className="mt-24 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="mt-14 grid grid-cols-1 gap-6 md:mt-24 md:grid-cols-2">
           {dict.benefits.map((benefit, index) => (
             <Reveal key={benefit} delay={index * 0.06}>
               <div className="flex items-start gap-3">

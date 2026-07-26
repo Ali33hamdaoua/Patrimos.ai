@@ -373,7 +373,7 @@ export const fr = {
         title: "Le scanner sur le terrain",
         description:
           "Le terminal Zebra TC22 équipé de l'application PATRIMOS. Vos équipes scannent les actifs en quelques secondes, avec une synchronisation en temps réel vers le tableau de bord. Robuste, ergonomique, conçu pour un usage intensif en établissement.",
-        image: "/ScannerApplication.png",
+        images: ["/zebra.png", "/zebra1.png", "/zebra2.png"],
         connectionStatus: "Synchronisé",
         features: [
           // TODO: valeur à valider — performance annoncée.
@@ -389,7 +389,13 @@ export const fr = {
         title: "Le marqueur invisible",
         description:
           "Une puce RFID passive, discrète et durable, apposée sur chaque actif de valeur. Sans batterie, sans maintenance, elle identifie l'objet de manière unique et permet son suivi tout au long de sa vie dans l'établissement.",
-        image: "/TAGRFID.png",
+        images: [
+          "/tag.png",
+          "/tagrfid2.png",
+          "/tagrfid3.png",
+          "/tagmetal.png",
+          "/rouleautag.png",
+        ],
         connectionStatus: "Passive · sans batterie",
         features: [
           // TODO: valeur à valider — durée de vie annoncée du tag.

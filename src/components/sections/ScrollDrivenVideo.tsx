@@ -89,7 +89,14 @@ export function ScrollDrivenVideo({
         window.clearTimeout(fallbackTimer);
         fallbackTimer = null;
       }
-      if (video!.duration > 0 && Number.isFinite(video!.duration)) {
+      // Sous md : pas de pin/scroll-jacking (rendu haché sur mobile + risque
+      // de rognage du contenu empilé) → simple lecture en boucle.
+      const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+      if (
+        isDesktop &&
+        video!.duration > 0 &&
+        Number.isFinite(video!.duration)
+      ) {
         activateScrollSync();
       } else {
         activateFallback();
@@ -116,7 +123,7 @@ export function ScrollDrivenVideo({
   return (
     <div
       ref={containerRef}
-      className="relative flex h-screen w-full items-center overflow-hidden bg-surface"
+      className="relative flex min-h-screen w-full items-center overflow-hidden bg-surface py-20 md:h-screen md:py-0"
     >
       <Container>
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16">

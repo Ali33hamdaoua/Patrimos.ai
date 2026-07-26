@@ -5,33 +5,15 @@ import {
   ContainerAnimated,
   ContainerStagger,
 } from "@/components/ui/animated-gallery";
-import { LoadingCarousel } from "@/components/ui/loading-carousel";
 import { localizeHref, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 /**
- * Section 7 — La plateforme en action. Carousel autoplay (embla) des captures
- * réelles de la plateforme, avec caption animée + barre de progression.
- * id="features" : cible des liens footer / nav.
+ * Section 7 — La plateforme. id="features" : cible des liens footer / nav.
  *
- * Captures dans /public (racine), format paysage 16:9 → `aspectRatio="video"`.
+ * Les captures réelles sont temporairement retirées → placeholder
+ * « Captures à venir » en attendant les visuels définitifs.
  */
-
-// Captures de la plateforme présentées dans le carousel (dans l'ordre).
-const PLATFORM_TIPS: { text: string; image: string }[] = [
-  { text: "Tableau de bord — tout votre parc d'un coup d'œil", image: "/Dashboard_Patrimos.png" },
-  { text: "Analytics & KPIs en temps réel", image: "/Analytics.png" },
-  { text: "Rapports PDF / Excel exportables", image: "/Rapports.png" },
-  { text: "Alertes suivies en Kanban", image: "/Alertes.png" },
-  { text: "Registre complet des actifs", image: "/RegistreActifs.png" },
-  { text: "Ajout d'un actif en quelques clics", image: "/AjoutActif.png" },
-  { text: "Importation des actifs en masse", image: "/ImportationActifs.png" },
-  { text: "Structuration du parc par zones", image: "/Structuration.png" },
-  { text: "Insights IA sur votre patrimoine", image: "/AI.png" },
-  { text: "Assistant PAT — votre copilote IA", image: "/Chatbot.png" },
-  { text: "Sessions d'inventaire guidées", image: "/Sessions_inventaire.png" },
-  { text: "Guide utilisateur intégré", image: "/GuideUtilisateur.png" },
-];
 
 export function FeaturesGallery({
   locale,
@@ -61,7 +43,7 @@ export function FeaturesGallery({
 
       {/* Header */}
       <Container className="relative z-10">
-        <ContainerStagger className="pt-section text-center">
+        <ContainerStagger className="pt-20 text-center md:pt-section">
           <ContainerAnimated>
             <p className="text-xs uppercase tracking-[0.3em] text-gold/80">
               {dict.overline}
@@ -102,18 +84,14 @@ export function FeaturesGallery({
         </ContainerStagger>
       </Container>
 
-      {/* Carousel autoplay des captures réelles de la plateforme. */}
-      <Container className="relative z-10 mt-16 pb-section md:mt-24">
+      {/* Placeholder « Captures à venir » (visuels définitifs à intégrer). */}
+      <Container className="relative z-10 mt-16 pb-20 md:mt-24 md:pb-section">
         <Reveal>
-          <LoadingCarousel
-            tips={PLATFORM_TIPS}
-            aspectRatio="video"
-            autoplayInterval={4500}
-            showProgress={false}
-            showIndicators
-            showNavigation
-            animateText={false}
-          />
+          <div className="mx-auto flex aspect-video w-full max-w-4xl items-center justify-center rounded-2xl border border-dashed border-gold/25 bg-[#141414]">
+            <p className="text-xs uppercase tracking-[0.3em] text-ink-tertiary md:text-sm">
+              Captures à venir
+            </p>
+          </div>
         </Reveal>
       </Container>
     </section>

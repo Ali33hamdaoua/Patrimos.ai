@@ -180,7 +180,7 @@ export function Contact({
                   {/* Honeypot — hors-écran, hors-tab, invisible des humains. */}
                   <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden"
+                    className="sr-only"
                   >
                     <label>
                       Website

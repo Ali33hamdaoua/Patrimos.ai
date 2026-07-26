@@ -135,7 +135,7 @@ export default async function ApplicationPage({
                   glowColor="gold"
                   customSize
                   height="100%"
-                  className="min-h-[580px]"
+                  className="min-h-[520px] md:min-h-[580px]"
                 >
                   {/* Région haute (grid-row 1fr) : carousel + titre + description. */}
                   <div className="flex flex-col">
@@ -329,7 +329,7 @@ export default async function ApplicationPage({
         className="bg-surface"
       >
         <Container>
-          <div className="flex min-h-[50vh] flex-col items-center justify-center py-section text-center">
+          <div className="flex min-h-[50vh] flex-col items-center justify-center py-20 text-center md:py-section">
             <Reveal>
               <h2 className="font-serif text-4xl leading-[1.15] text-ink-primary md:text-5xl">
                 {t.finalCta.title}

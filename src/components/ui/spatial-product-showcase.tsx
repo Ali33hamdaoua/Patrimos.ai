@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -35,7 +35,7 @@ export type SpatialProduct = {
   readonly label: string;
   readonly title: string;
   readonly description: string;
-  readonly image: string;
+  readonly images: readonly string[];
   readonly connectionStatus: string;
   readonly features: ReadonlyArray<{ readonly label: string; readonly value: number }>;
   readonly footer: string;
@@ -114,6 +114,88 @@ const SectionBackgroundGradient = () => (
   </div>
 );
 
+// Crossfade doux entre les vues d'un même produit (cycle du carousel).
+const crossfadeVariants: Variants = {
+  initial: { opacity: 0, scale: 1.06 },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+  exit: { opacity: 0, scale: 0.98, transition: { duration: 0.3 } },
+};
+
+/**
+ * Carousel des vues produit dans le cercle. Première image = entrée « fly-in »
+ * (direction selon isLeft) ; les suivantes s'enchaînent en crossfade toutes
+ * les ~2,8 s. Points cliquables. Réinitialisé au switch produit via `key`.
+ */
+const CircleImageCarousel = ({
+  images,
+  alt,
+  isLeft,
+}: {
+  images: readonly string[];
+  alt: string;
+  isLeft: boolean;
+}) => {
+  const [index, setIndex] = useState(0);
+  const firstRef = useRef(true);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const timer = setInterval(() => {
+      firstRef.current = false;
+      setIndex((i) => (i + 1) % images.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <>
+      <motion.div
+        animate={{ y: [-10, 10, -10] }}
+        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+        className="relative z-10 flex h-full w-full items-center justify-center"
+      >
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={index}
+            src={images[index]}
+            alt={alt}
+            variants={firstRef.current ? imageVariants(isLeft) : crossfadeVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="h-full w-full object-contain p-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+            draggable={false}
+          />
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Points de pagination (hors du bloc flottant). */}
+      {images.length > 1 && (
+        <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => {
+                firstRef.current = false;
+                setIndex(i);
+              }}
+              aria-label={`Voir la vue ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === index ? "w-4 bg-gold" : "w-1.5 bg-white/30 hover:bg-gold/60"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
+
 const ProductVisual = ({
   product,
   isLeft,
@@ -136,26 +218,13 @@ const ProductVisual = ({
     />
 
     {/* Cercle conteneur */}
-    <div className="relative flex h-80 w-80 items-center justify-center overflow-hidden rounded-full border border-white/5 bg-black/20 shadow-2xl backdrop-blur-sm md:h-[450px] md:w-[450px]">
-      <motion.div
-        animate={{ y: [-10, 10, -10] }}
-        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-        className="relative z-10 flex h-full w-full items-center justify-center"
-      >
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={product.id}
-            src={product.image}
-            alt={product.title}
-            variants={imageVariants(isLeft)}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="h-full w-full object-contain p-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-            draggable={false}
-          />
-        </AnimatePresence>
-      </motion.div>
+    <div className="relative flex h-56 w-56 items-center justify-center overflow-hidden rounded-full border border-white/5 bg-black/20 shadow-2xl backdrop-blur-sm sm:h-80 sm:w-80 md:h-[450px] md:w-[450px]">
+      <CircleImageCarousel
+        key={product.id}
+        images={product.images}
+        alt={product.title}
+        isLeft={isLeft}
+      />
     </div>
 
     {/* Pastille de statut */}
@@ -178,9 +247,13 @@ const ProductDetails = ({
   product: SpatialProduct;
   isLeft: boolean;
 }) => {
-  const alignClass = isLeft ? "items-start text-left" : "items-end text-right";
-  const flexDirClass = isLeft ? "flex-row" : "flex-row-reverse";
-  const barPosClass = isLeft ? "left-0" : "right-0";
+  // Le layout « miroir » (aligné à droite) n'est activé qu'à partir de md :
+  // sur mobile/tablette-portrait tout est empilé et aligné à gauche.
+  const alignClass = isLeft
+    ? "items-start text-left"
+    : "items-start text-left md:items-end md:text-right";
+  const flexDirClass = isLeft ? "flex-row" : "flex-row md:flex-row-reverse";
+  const barPosClass = isLeft ? "left-0" : "left-0 md:right-0";
 
   return (
     <motion.div
@@ -204,7 +277,7 @@ const ProductDetails = ({
       </motion.h2>
       <motion.p
         variants={itemVariants}
-        className={`mb-8 max-w-sm text-sm leading-relaxed text-ink-secondary ${isLeft ? "mr-auto" : "ml-auto"}`}
+        className={`mb-8 max-w-sm text-sm leading-relaxed text-ink-secondary ${isLeft ? "mr-auto" : "mr-auto md:ml-auto"}`}
       >
         {product.description}
       </motion.p>
@@ -245,7 +318,7 @@ const ProductDetails = ({
       {/* Ligne neutre en bas (remplace le % de batterie d'origine) */}
       <motion.p
         variants={itemVariants}
-        className={`mt-6 text-sm text-ink-tertiary ${isLeft ? "text-left" : "text-right"}`}
+        className={`mt-6 text-sm text-ink-tertiary ${isLeft ? "text-left" : "text-left md:text-right"}`}
       >
         {product.footer}
       </motion.p>
@@ -323,14 +396,14 @@ export function SpatialProductShowcase({
   const options = products.map((p) => ({ id: p.id, label: p.label }));
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <SectionBackgroundGradient />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         <motion.div
           layout
           transition={{ type: "spring", bounce: 0, duration: 0.9 }}
-          className={`flex w-full flex-col items-center justify-center gap-16 md:gap-24 lg:gap-32 ${
+          className={`flex w-full flex-col items-center justify-center gap-10 md:gap-24 lg:gap-32 ${
             isLeft ? "md:flex-row" : "md:flex-row-reverse"
           }`}
         >

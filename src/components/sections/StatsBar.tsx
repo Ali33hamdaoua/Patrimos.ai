@@ -19,7 +19,7 @@ export function StatsBar({ stats }: { stats: Dictionary["stats"] }) {
     <Section variant="base" padding="default" ariaLabel="Chiffres clés">
       <Container>
         <Reveal>
-          <p className="mb-14 text-center text-xs uppercase tracking-[0.3em] text-gold/70">
+          <p className="mb-8 text-center text-xs uppercase tracking-[0.3em] text-gold/70 md:mb-14">
             {stats.overline}
           </p>
         </Reveal>

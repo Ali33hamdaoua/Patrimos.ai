@@ -12,10 +12,11 @@ const variantClass: Record<Variant, string> = {
 };
 
 const paddingClass: Record<Padding, string> = {
-  // 120px vertical desktop — le luxe respire.
-  default: "py-section",
-  // ~80→96px : bandeaux courts (stats, sécurité).
-  tight: "py-20 md:py-24",
+  // Mobile plus compact (80px) → 120px desktop : le luxe respire sans
+  // gaspiller de hauteur sur petit écran.
+  default: "py-20 md:py-section",
+  // ~64→96px : bandeaux courts (stats, sécurité).
+  tight: "py-16 md:py-24",
   none: "",
 };
 

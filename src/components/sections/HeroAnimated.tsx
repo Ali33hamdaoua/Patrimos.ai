@@ -54,7 +54,7 @@ export function HeroAnimated({ locale, heroAnimated }: HeroAnimatedProps) {
                 <AnimatedTextCycle
                   words={[...heroAnimated.words]}
                   interval={3000}
-                  className="text-gold-gradient text-3xl tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
+                  className="text-gold-gradient text-2xl tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
                 />
               </span>
             </h1>

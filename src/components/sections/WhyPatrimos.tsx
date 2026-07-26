@@ -47,7 +47,7 @@ export function WhyPatrimos({
                   glowColor="gold"
                   customSize
                   height="100%"
-                  className="min-h-[440px]"
+                  className="min-h-[360px] md:min-h-[440px]"
                 >
                   {/* Bloc haut : icône + titre + problème (grid-row 1fr). */}
                   <div className="flex flex-col">
