@@ -1,0 +1,78 @@
+/* -------------------------------------------------------------------------- *
+ *  Page /coming-soon — animations d'ambiance UNIQUEMENT.                      *
+ *                                                                            *
+ *  Fichier volontairement isolé de `globals.css` : la page d'attente est      *
+ *  temporaire, on doit pouvoir la retirer sans laisser de trace dans les      *
+ *  styles globaux du site. Toutes les classes sont préfixées `cs-`.           *
+ *                                                                            *
+ *  Les couleurs reprennent les tokens Patrimos (or antique #C9A55C,           *
+ *  noir chaud #0A0A0A). Les durées sont très longues : le mouvement doit      *
+ *  rester quasi inconscient.                                                  *
+ * -------------------------------------------------------------------------- */
+
+/* Halo or : dérive extrêmement lente + respiration lumineuse. */
+@keyframes cs-halo-drift {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.12);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(-2%, 3%, 0) scale(1.04);
+    opacity: 0.6;
+  }
+}
+
+/* Grain : micro-décalage par paliers, imperceptible mais vivant. */
+@keyframes cs-grain-shift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(-1.5%, 1%, 0);
+  }
+  40% {
+    transform: translate3d(1%, -1.5%, 0);
+  }
+  60% {
+    transform: translate3d(-1%, -1%, 0);
+  }
+  80% {
+    transform: translate3d(1.5%, 1.5%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.cs-halo {
+  animation: cs-halo-drift 38s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.cs-halo--slow {
+  animation-duration: 54s;
+  animation-delay: -14s;
+}
+
+.cs-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.05;
+  mix-blend-mode: soft-light;
+  animation: cs-grain-shift 7s steps(5) infinite;
+  will-change: transform;
+}
+
+/* Accessibilité : aucun mouvement d'ambiance si l'utilisateur le demande.
+   (Le canvas WebGL est, lui, retiré côté React — cf. ComingSoon.tsx.) */
+@media (prefers-reduced-motion: reduce) {
+  .cs-halo,
+  .cs-halo--slow,
+  .cs-grain {
+    animation: none;
+  }
+}
