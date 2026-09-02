@@ -4,23 +4,23 @@ import "../globals.css";
 import "./coming-soon.css";
 
 /**
- * Root layout dédié à la page d'attente `/coming-soon`.
+ * Root layout dédié à la page d'attente.
  *
  * La route vit volontairement HORS de `[locale]/` : elle n'hérite donc ni de
  * la Navbar ni du Footer du site, sans qu'aucun composant existant n'ait à
- * être modifié. Le site complet (`/fr`, `/en`, …) continue d'utiliser son
- * propre layout, inchangé.
+ * être modifié. Le site complet (`/fr`, `/en`, …) conserve son propre layout,
+ * inchangé — il est simplement dévié tant que le mode d'attente est actif.
  *
- * Supprimer le dossier `src/app/coming-soon/` suffit à retirer entièrement
- * cette page du projet.
+ * En mode d'attente, cette page est servie SUR LA RACINE par réécriture
+ * (cf. `src/proxy.ts`) : l'URL publique est `www.patrimos.ai`.
  */
 export const metadata: Metadata = {
   title: "Patrimos.ai — Site en cours",
   description:
     "Une nouvelle expérience arrive prochainement. Nous préparons une nouvelle version de Patrimos.ai.",
-  // Page d'attente : on évite qu'elle soit indexée tant que le site complet
-  // est en ligne. À retirer si `/coming-soon` devient la page publique.
-  robots: { index: false, follow: false },
+  // Indexation laissée ouverte : cette page EST la page publique du domaine.
+  // La mettre en `noindex` ferait sortir patrimos.ai des résultats de
+  // recherche pendant toute la durée de la refonte.
 };
 
 export default function ComingSoonLayout({
