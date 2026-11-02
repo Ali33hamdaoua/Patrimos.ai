@@ -1,0 +1,24 @@
+/*
+ * Feuille propre à la page d'accueil de la plateforme : Tailwind SANS la
+ * hiérarchie typographique du site marketing (globals.css impose Geist et
+ * ses graisses aux titres). Polices et couleurs reprises d'app.patrimos.ai.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  background: #080808;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ah-serif {
+  font-family: var(--font-cormorant-garamond), Georgia, serif;
+  font-weight: 400;
+}
+
+::selection {
+  background: rgba(184, 152, 90, 0.25);
+}

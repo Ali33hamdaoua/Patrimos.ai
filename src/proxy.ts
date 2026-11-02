@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { locales, defaultLocale } from "@/lib/i18n/config";
-import { COMING_SOON_ENABLED, COMING_SOON_PATH } from "@/lib/coming-soon";
+import { COMING_SOON_PATH } from "@/lib/coming-soon";
+import { APP_HOME_PATH, SITE_MODE } from "@/lib/site-mode";
 
 function pathHasLocale(pathname: string): boolean {
   return locales.some(
@@ -8,44 +9,66 @@ function pathHasLocale(pathname: string): boolean {
   );
 }
 
+/** Réécriture : l'adresse affichée ne change pas (`www.patrimos.ai/en` reste tel quel). */
+function rewrite(request: NextRequest, pathname: string): NextResponse {
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  return NextResponse.rewrite(url);
+}
+
 /**
- * Deux régimes, pilotés par `COMING_SOON_ENABLED` (cf. `src/lib/coming-soon.ts`).
+ * 307 sur une adresse publique, query string effacée (pas d'UTM d'une
+ * ancienne campagne). 307 = temporaire : jamais mis en cache, la bascule
+ * entre régimes est immédiate.
+ */
+function redirect(request: NextRequest, pathname: string): NextResponse {
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  url.search = "";
+  return NextResponse.redirect(url);
+}
+
+/**
+ * Trois régimes, pilotés par `SITE_MODE` (cf. `src/lib/site-mode.ts`).
  *
- * 1. Mode page d'attente (actuel) — UNE SEULE URL publique : la racine.
- *    `/` sert la page « Site en cours » par RÉÉCRITURE : l'adresse affichée
- *    reste `www.patrimos.ai`, sans `/fr`, sans `/coming-soon`, sans redirection
- *    visible. Toute autre URL (`/fr`, `/en`, `/fr/application`, `/coming-soon`,
- *    un lien périmé…) est renvoyée en 307 sur la racine.
+ * 1. "landing" (défaut) — page d'accueil de la plateforme, quatre adresses
+ *    publiques servies par RÉÉCRITURE vers `/accueil/{fr|en}` :
+ *      `/`                  → accueil FR
+ *      `/en`                → accueil EN
+ *      `/confidentialite`   → Confidentialité FR
+ *      `/en/confidentialite`→ Confidentialité EN
+ *    Toute autre adresse (`/fr`, `/fr/application`, `/coming-soon`,
+ *    `/accueil/…` en direct, un lien périmé…) revient sur `/` (ou `/en`).
  *
- * 2. Mode normal — comportement d'origine : chaque route est préfixée par la
- *    locale, `/` part sur la langue par défaut (FR).
+ * 2. "coming-soon" — `/` sert la page « Site en cours » ; tout le reste
+ *    revient sur la racine.
  *
- * Le site complet reste intégralement en place dans les deux cas : rien n'est
- * supprimé, seul l'accès public est dévié le temps de la refonte.
+ * 3. "full" — comportement d'origine : routes préfixées par la locale, `/`
+ *    part sur la langue par défaut (FR).
+ *
+ * Le site complet reste intégralement en place : rien n'est supprimé, seul
+ * l'accès public est dévié.
  */
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (COMING_SOON_ENABLED) {
-    // La racine SERT la page d'attente sans changer d'URL. `rewrite` (et non
-    // `redirect`) : le visiteur reste sur `www.patrimos.ai`. Next propage
-    // lui-même les en-têtes RSC nécessaires.
-    if (pathname === "/") {
-      const url = request.nextUrl.clone();
-      url.pathname = COMING_SOON_PATH;
-      return NextResponse.rewrite(url);
-    }
-
-    // Tout le reste revient sur la racine. 307 = temporaire : aucun navigateur
-    // ne la met en cache, la bascule inverse est immédiate. La query string est
-    // effacée (pas d'UTM d'une ancienne campagne traînant sur la page).
-    const root = request.nextUrl.clone();
-    root.pathname = "/";
-    root.search = "";
-    return NextResponse.redirect(root);
+  if (SITE_MODE === "landing") {
+    // Une réécriture ne repasse pas par le proxy : `/accueil/…` tapé en
+    // direct tombe donc dans la redirection finale.
+    if (pathname === "/") return rewrite(request, `${APP_HOME_PATH}/fr`);
+    if (pathname === "/en") return rewrite(request, `${APP_HOME_PATH}/en`);
+    if (pathname === "/confidentialite") return rewrite(request, `${APP_HOME_PATH}/fr/confidentialite`);
+    if (pathname === "/en/confidentialite") return rewrite(request, `${APP_HOME_PATH}/en/confidentialite`);
+    // Une ancienne adresse anglaise garde l'anglais.
+    return redirect(request, pathname === "/en" || pathname.startsWith("/en/") ? "/en" : "/");
   }
 
-  /* ---------------------- Mode normal : site complet ---------------------- */
+  if (SITE_MODE === "coming-soon") {
+    if (pathname === "/") return rewrite(request, COMING_SOON_PATH);
+    return redirect(request, "/");
+  }
+
+  /* ---------------------- Mode "full" : site complet ---------------------- */
 
   // La page d'attente reste joignable directement quand le mode est coupé.
   if (pathname.startsWith(COMING_SOON_PATH) || pathHasLocale(pathname)) {
@@ -59,7 +82,5 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // Exclut _next, l'API et tout fichier statique (présence d'un point).
-  // `/coming-soon` n'est plus exclu : en mode page d'attente, il doit lui
-  // aussi être ramené sur la racine — une seule URL publique.
   matcher: ["/((?!_next|api|.*\\..*).*)"],
 };
